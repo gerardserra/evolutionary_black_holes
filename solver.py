@@ -5,13 +5,14 @@ from operator import itemgetter
 import cma
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 
 class Solver(object):
-    def __init__(self,rings):
-        self.population = 500
+    def __init__(self,rings,population):
+        self.population = population
         self.rings = rings
         self.initialMeans = np.zeros(self.rings)
-        self.initialSigma = 1
+        self.initialSigma = 50
         self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population,'bounds': [0, 100]})
         self.candidates = self.es.ask()
         print('Created solver')
@@ -47,6 +48,18 @@ class Solver(object):
             end = False
         return end
 
+def simResults2List(rewardList, candidates):
+    solutions = []
+    fitNormal = []
+    for i in range(len(candidates)):
+        element = {
+            "value":candidates[i],
+            "fit": rewardList[i]
+        }
+        solutions.append(element)
+    newList = sorted(solutions, key=itemgetter('fit'), reverse = False)
+    return newList
+
 def evaluateMinimal(candidates, target):
     solutions = []
     fitNormal = []
@@ -67,12 +80,18 @@ def npArray2MatlabList(npArray):
         proposal.append(element)
     return proposal
 
+def list2MatlabVector(x):
+    eng = matlab.engine.start_matlab()
+    columnVector = eng.fitdist(matlab.double(list(x), (x.size, 1)), 'stable')
+    return columnVector
+
 def linearEquation(parameters):
-    distTruncation = 3
-    ringSeparation = 3
     solution = []
+    L=0.5;
+    hring=0.001/1000;
+    xl=1.0e-3;
     for i in range(parameters):
-        solution.append(2*i*ringSeparation+distTruncation)
+        solution.append(2*i)
     return solution
 
 def quadraticEquation(parameters):

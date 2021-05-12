@@ -45,9 +45,9 @@ if nargout==0
     set(0,'defaultaxesfontsize',fontsize);
     set(0,'defaulttextfontsize',fontsize);
 
-    figure;
-    ZinN=Var.ZinN;
-    subplot(211), plot(f/1000,abs(ZinN)); ylabel('$$|Z_{\rm in}|$$','Interpreter','latex');xlabel('Frequency (kHz)','Interpreter','latex'); ylim([0 10])
-    subplot(212), plot(f/1000,abs(R)); ylabel('$$|\mathcal{R}|$$','Interpreter','latex');  xlabel('Frequency (kHz)','Interpreter','latex'); ylim([0 1])
+    %figure;
+    %ZinN=Var.ZinN;
+    %subplot(211), plot(f/1000,abs(ZinN)); ylabel('$$|Z_{\rm in}|$$','Interpreter','latex');xlabel('Frequency (kHz)','Interpreter','latex'); ylim([0 10])
+    %subplot(212), plot(f/1000,abs(R)); ylabel('$$|\mathcal{R}|$$','Interpreter','latex');  xlabel('Frequency (kHz)','Interpreter','latex'); ylim([0 1])
     
 end    

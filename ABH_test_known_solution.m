@@ -1,12 +1,13 @@
 function [bestProposals,bestFits]=ABH_test(numRings)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   
-% call with 2 rings [proposals, fitness] = ABH_test(2);
-% call with 40 rings [proposals, fitness] = ABH_test(40);
+% call with 2 rings [proposals, fitness] = ABH_test_known_solution(2);
+% call with 40 rings [proposals, fitness] = ABH_test_known_solution(40);
 % Returns the best proposal of each generation and its fitness
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-MAX_GENERATIONS = 100;
+MAX_GENERATIONS = 1000;
+POPULATION = 100;
 L=0.5;
 hring=0.001/1000;
 xl=1.0e-3;
@@ -22,7 +23,7 @@ targetSolution = moduleSolver.linearEquation(totalRings);
 
 disp('Solution'); 
 disp(targetSolution);
-s = moduleSolver.Solver(numRings);
+s = moduleSolver.Solver(numRings,POPULATION);
 candidates = s.ask();
 
 gen=0;

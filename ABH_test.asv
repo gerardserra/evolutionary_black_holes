@@ -48,21 +48,16 @@ while not(endExperiment)
             i= i+1;
         end
        [R,f] = ABH_Optimitzation(proposal);
-       reward = 0;
-       for iR = 1:length(R)
-           if( abs(R(iR)) > 0.2)
-               reward = reward+1; 
-           end
+       for p = y
+            proposal(i) = (p{1});
+            i= i+1;
+        end
+       if(abs(R(i)
+       reward = sum(abs(R(FREQ_CUT:end)).^2);
+       if(reward < 1200)
+            plot(abs(R),f)
+            disp(proposal)
        end
-
-      
-       %reward = sum(abs(R(FREQ_CUT:end)).^2);
-       %if(reward < 1200)
-       %if(reward < MAX_VALUE*10*0.5)
-       %     plot(f,abs(R));
-       %     disp(proposal);
-       %     figure;
-       %end
        disp("c:"+iProposal+" r:"+reward);
        rewardList(iProposal) = reward;
        iProposal = iProposal+1;
