@@ -12,7 +12,7 @@ class Solver(object):
         self.rings = rings
         self.initialMeans = np.zeros(self.rings)
         self.initialSigma = 1
-        self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population})
+        self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population,'bounds': [0, 100]})
         self.candidates = self.es.ask()
         print('Created solver')
 
