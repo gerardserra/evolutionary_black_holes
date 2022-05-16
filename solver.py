@@ -11,9 +11,10 @@ class Solver(object):
     def __init__(self,rings,population):
         self.population = population
         self.rings = rings
-        self.initialMeans = np.zeros(self.rings)
-        self.initialSigma = 50
-        self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population,'bounds': [0, 100]})
+        self.initialMeans = np.random.uniform(low=1, high=9.5, size=(2,))
+        self.initialSigma = 5
+        #self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population,'CMA_on':0 ,'bounds': [1, 9.5]})
+        self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population,'bounds': [1, 9.5]})
         self.candidates = self.es.ask()
         print('Created solver')
 
@@ -80,10 +81,41 @@ def npArray2MatlabList(npArray):
         proposal.append(element)
     return proposal
 
+def generateRingsFromnpArray(npArray):
+    profile = generateABHProfile(npArray)
+    profilePerCent = radiusPerCent(profile,0.5)
+    proposal = []    
+    for element in profilePerCent:
+        proposal.append(element)
+    return proposal
+
 def list2MatlabVector(x):
     eng = matlab.engine.start_matlab()
     columnVector = eng.fitdist(matlab.double(list(x), (x.size, 1)), 'stable')
     return columnVector
+
+def generateABHProfile(arr):
+    numRings = 40
+    arrayRadius = []
+    R = 0.23
+    L = 0.5
+    xl=1.0e-3;
+    hring=0.001/1000;
+    dx = (L-xl-hring*numRings)/numRings;
+    n = 2
+    arrayRadiusPositions = []
+    pos = -xl
+    for j in range(numRings): 
+        pos = pos - dx
+        arrayRadiusPositions.append(abs(pos))
+    
+    for i in range(numRings):
+        currentRadius = R*(arrayRadiusPositions[i]/L)**n
+        arrayRadius.append(currentRadius)
+    return arrayRadius
+
+def radiusPerCent(arrayRadius,L):
+    return [ i / L *100 for i in arrayRadius]
 
 def linearEquation(parameters):
     solution = []

@@ -203,19 +203,19 @@ R=(ZinN-1)./(ZinN+1);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 if nargout==0
-    set(0,'DefaultTextInterpreter', 'tex');
+    %set(0,'DefaultTextInterpreter', 'tex');
 
-    fontsize = 14;
-    set(0,'defaultaxesfontsize',fontsize);
-    set(0,'defaulttextfontsize',fontsize);
+    %fontsize = 14;
+    %set(0,'defaultaxesfontsize',fontsize);
+    %set(0,'defaulttextfontsize',fontsize);
 
-    figure;
-    subplot(211), plot(f/1000,abs(ZinN)); ylabel('$$|Z_{\rm in}|$$','Interpreter','latex');xlabel('Frequency (kHz)','Interpreter','latex'); ylim([0 10])
-    subplot(212), plot(f/1000,abs(R)); ylabel('$$|\mathcal{R}|$$','Interpreter','latex');  xlabel('Frequency (kHz)','Interpreter','latex'); ylim([0 1])
+    %figure;
+    %subplot(211), plot(f/1000,abs(ZinN)); ylabel('$$|Z_{\rm in}|$$','Interpreter','latex');xlabel('Frequency (kHz)','Interpreter','latex'); ylim([0 10])
+    %subplot(212), plot(f/1000,abs(R)); ylabel('$$|\mathcal{R}|$$','Interpreter','latex');  xlabel('Frequency (kHz)','Interpreter','latex'); ylim([0 1])
     
-    figure;
-    subplot(211), plot(k0*(L-l),abs(ZinN)); ylabel('$$|Z_{\rm in}|$$','Interpreter','latex');xlabh=xlabel('$$k_0 (L-l)$$','Interpreter','latex');set(xlabh,'Units','Normalized'); ylim([0 10]); xlim([0 4]); 
-    subplot(212), plot(k0*(L-l),abs(R)); ylabel('$$|\mathcal{R}|$$','Interpreter','latex');  xlabh=xlabel('$$k_0 (L-l)$$','Interpreter','latex');set(xlabh,'Units','Normalized'); ylim([0 1]);  xlim([0 4]);
+    %figure;
+    %subplot(211), plot(k0*(L-l),abs(ZinN)); ylabel('$$|Z_{\rm in}|$$','Interpreter','latex');xlabh=xlabel('$$k_0 (L-l)$$','Interpreter','latex');set(xlabh,'Units','Normalized'); ylim([0 10]); xlim([0 4]); 
+    %subplot(212), plot(k0*(L-l),abs(R)); ylabel('$$|\mathcal{R}|$$','Interpreter','latex');  xlabh=xlabel('$$k_0 (L-l)$$','Interpreter','latex');set(xlabh,'Units','Normalized'); ylim([0 1]);  xlim([0 4]);
 
 end
 
@@ -226,9 +226,9 @@ end
 if strcmp(dampconf,'kz')==0
     switch conf(1:3)
         case 'lin'   
-            Rana=ABH_analytical_linear (k0,c',L,l);
+%             Rana=ABH_analytical_linear (k0,c',L,l);
         case 'qua'
-            Rana=ABH_analytical_quad   (k0,c',L,l);
+%             Rana=ABH_analytical_quad   (k0,c',L,l);
     end
 else
    Rana=[]; 
@@ -241,7 +241,7 @@ k0L=k0*L;
 
 Var.f=f;
 Var.R=R;
-Var.Rana=Rana;
+%Var.Rana=Rana;
 Var.Zin=Zin;
 Var.ZinN=ZinN;
 Var.k0L=k0L;
@@ -386,13 +386,13 @@ ZlI=imag(Zl);
 
 % alphan=(4*ZlR*rho0*c0)./(abs(Zl).^2 + 2*rho0*c0*ZlR + (rho0*c0).^2);
 
-alphan=1-abs((Zl-rho0*c0)./(Zl+rho0*c0)).^2;
+%alphan=1-abs((Zl-rho0*c0)./(Zl+rho0*c0)).^2;
 
-% hold all
-% figure(200);
-% %subplot(211), plot(f,abs(Zl)); ylim([0 1000])
-% %subplot(212), plot(f,abs(alphan));
-% plot(f,abs(alphan));
+ %hold all
+ %figure(200);
+ %subplot(211), plot(f,abs(Zl)); ylim([0 1000])
+ %subplot(212), plot(f,abs(alphan));
+ %plot(f,abs(alphan));
 
 kw=kw.';
 Zw=Zw.';
@@ -718,16 +718,16 @@ global x1 x2 x3 x4
         end
     end
     
-%     figure(100);
-%     hold on
-%     box on
-%     xv=[x1(i) x1(i) x2(i) x2(i) x3(i) x4(i)];
-%     yv=[r1(i) R     R     r2(i) r3(i) r4(i)];     
-%     plot(xv,yv,'Color',	[0, 0.4470, 0.7410])
-%     ylabel('ABH profile (m)','Interpreter','latex');
-%     xlabel('Distance from termination (m)','Interpreter','latex');
-%     hold off
-%     drawnow
+    
+    % hold on
+    % box on
+    % xv=[x1(i) x1(i) x2(i) x2(i) x3(i) x4(i)];
+    % yv=[r1(i) R     R     r2(i) r3(i) r4(i)];     
+    % plot(xv,yv,'Color',	[0, 0.4470, 0.7410])
+    % ylabel('ABH profile (m)','Interpreter','latex');
+    % xlabel('Distance from termination (m)','Interpreter','latex');
+    % hold off
+    % drawnow
 
     r1_out=r1(i);
     r2_out=r2(i);

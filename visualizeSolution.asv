@@ -1,2 +1,0 @@
-function [R,f]=visualizeSolution(vecrvec)
-[R,f]=ABH_Optimitzation(rvec)

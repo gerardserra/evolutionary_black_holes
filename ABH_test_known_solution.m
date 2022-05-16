@@ -7,7 +7,7 @@ function [bestProposals,bestFits]=ABH_test(numRings)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 MAX_GENERATIONS = 1000;
-POPULATION = 100;
+POPULATION = 1000;
 L=0.5;
 hring=0.001/1000;
 xl=1.0e-3;
@@ -32,6 +32,7 @@ while not(endExperiment)
  
     proposals = moduleSolver.evaluateMinimal(candidates,targetSolution); 
     bestProposal = proposals(1);
+    disp(proposals)
     for n = bestProposal
         maxFit = n{1}{'fit'};
         p = cell(moduleSolver.npArray2MatlabList(n{1}{'value'}));
