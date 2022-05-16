@@ -1,6 +1,6 @@
 %
 % showResults(experimentBestShapes{1, 1}{1, 51},experimentBestProposals{1, 1}{1, 51})
-%
+% showResults(a,{0,1.62})
 function showResults(shape,exp)
  figure(100);
     

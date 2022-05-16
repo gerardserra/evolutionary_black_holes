@@ -83,7 +83,7 @@ def npArray2MatlabList(npArray):
 
 def generateRingsFromnpArray(npArray):
     profile = generateABHProfile(npArray)
-    profilePerCent = radiusPerCent(profile,0.5)
+    profilePerCent = radiusPerCent(profile,0.23)
     proposal = []    
     for element in profilePerCent:
         proposal.append(element)
@@ -102,7 +102,7 @@ def generateABHProfile(arr):
     xl=1.0e-3;
     hring=0.001/1000;
     dx = (L-xl-hring*numRings)/numRings;
-    n = 2
+    n = arr[1]
     arrayRadiusPositions = []
     pos = -xl
     for j in range(numRings): 
