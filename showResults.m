@@ -1,6 +1,18 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   Shows R from a given profile comparing it to profile of N=2
 %
-% showResults(experimentBestShapes{1, 1}{1, 51},experimentBestProposals{1, 1}{1, 51})
-% showResults(a,{0,1.62})
+%   From an optimization process
+%       load('test_exp(1,20,10,500).mat')
+%       showResults(experimentBestShapes{1, 1}{1, 51},experimentBestProposals{1, 1}{1, 51})
+% 
+%   From given profiles
+%       load('profiles.mat')
+%       showResults(profileN1,{0,1}) 
+%       showResults(profileN2,{0,2}) 
+%
+%   Author: Gerard serra, 2022
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 function showResults(shape,exp)
  figure(100);
     

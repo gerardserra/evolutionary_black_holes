@@ -4,7 +4,10 @@
 %   
 % Runs a set of experiments
 % 
-% Author: Gerard serra, 2022
+%   Example: 1 exp ,10 generations, 20 members, freq < 500
+%    - test_exp(1,20,10,500) 
+% 
+%   Author: Gerard serra, 2022
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

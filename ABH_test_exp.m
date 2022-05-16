@@ -57,7 +57,7 @@ while not(endExperiment)
        disCount = 0;
  
        for iR = 2:length(R)
-           if(iR > cutFreq)
+           if(f(iR) < cutFreq)
                if(abs(R(iR))>0.5)
                     disCount = disCount+1;
                end
