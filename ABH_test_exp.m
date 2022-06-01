@@ -18,10 +18,6 @@ MAX_VALUE = 25000-cutFreq;
 POPULATION = totalPop;
 %POPULATION = int32(4+3*log(numRings))
 disp("Population:"+POPULATION)
-L=0.5;
-hring=0.001/1000;
-xl=1.0e-3;
-dx = (L-xl-hring*numRings)/numRings;
 
 bestProposals = {};
 bestFits = {};
@@ -101,7 +97,7 @@ while not(endExperiment)
         endExperiment = true;
     end
     gen = gen + 1;
-    end
+  end
 
 
 

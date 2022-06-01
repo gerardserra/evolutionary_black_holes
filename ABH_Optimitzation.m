@@ -33,10 +33,14 @@ N=40;
 hring=0.001/1000;
 xl=1.0e-3;
 
- Var=ABH_ABCD_PQesq (1000,N,hring,xl,0.05,'a1',type,rvec); 
 
+if strcmp(type,'vec')
+    Var=ABH_ABCD_PQesq (1000,N,hring,xl,0.05,'a1','vec',rvec); 
+
+else
+    Var=ABH_ABCD_PQesq (1000,N,hring,xl,0.05,'a1','qua',rvec); 
+end
 %Var=ABH_ABCD_PQesq (1000,N,hring,xl,0.05,'a1','vec',rvec,'kz',100); 
-
 %Var=ABH_ABCD_PQesq (1000,N,hring,xl,0.05,'a1','vec',rvec); 
 %Var=ABH_ABCD_PQesq (1000,N,hring,xl,0.05,'a1','lin',rvec); 
 

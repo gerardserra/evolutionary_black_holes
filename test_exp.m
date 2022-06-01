@@ -5,7 +5,7 @@
 % Runs a set of experiments
 % 
 %   Example: 1 exp ,10 generations, 20 members, freq < 500
-%    - test_exp(1,20,10,500) 
+%    - test_exp(1,10,20,500) 
 % 
 %   Author: Gerard serra, 2022
 %

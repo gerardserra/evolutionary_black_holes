@@ -1,5 +1,6 @@
 
-function [bestProposals,bestFits,s]=ABH_test(numRings)
+function [bestProposals,bestFits,bestShapes,all,allFitness]=ABH_test(numRings,maxGen,totalPop,cutFreq)
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %   
 % Returns the best proposal of each generation and its fitness
@@ -12,68 +13,71 @@ function [bestProposals,bestFits,s]=ABH_test(numRings)
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-MAX_GENERATIONS = 1;
-MAX_VALUE = 2500;
+MAX_GENERATIONS = maxGen;
+MAX_VALUE = 25000-cutFreq;
 
-MAX_VALUE = 2720; 
-
-POPULATION = 1;
+POPULATION = totalPop;
 %POPULATION = int32(4+3*log(numRings))
 disp("Population:"+POPULATION)
-L=0.5;
-hring=0.001/1000;
-xl=1.0e-3;
-dx = (L-xl)/numRings;
 
 bestProposals = {};
 bestFits = {};
-endExperiment = false;
-totalRings = int32(numRings);
+bestShapes = {};
+allFitness = {};
+all = {};
 
-moduleSolver = py.importlib.import_module('solver');
+endExperiment = false;
+
+moduleSolver = py.importlib.import_module('solver_grow');
                         
 s = moduleSolver.Solver(numRings,POPULATION);
 candidates = s.ask();
 gen = 0;
-    while not(endExperiment)
+
+while not(endExperiment)
     disp("Generation "+gen)
+    disp("Freq :"+cutFreq)
     rewardList = zeros(1,POPULATION);
     iProposal = 1;
+    bestScore = 100000;
+    allCandidates = {};
+    allFitness = {};
     for c = candidates
-        y = [moduleSolver.npArray2MatlabList(c{1})];
-        proposal = zeros(size(y));
-            i = 1;
-        for p = y
-            proposal(i) = (p{1});
-            i= i+1;
-        end
-       [R,f] = ABH_Optimitzation(proposal);
-      
-       reward = 0;
-       for iR = 1:length(R)
-           %if( abs(R(iR)) > 0.2)
-           if isnan(R(iR))
-           else
-            reward = reward + abs(R(iR))*(iR/MAX_VALUE);
+       y = [moduleSolver.getShapeFromArray(c{1})];
+       proposal = zeros(size(y));
+       i = 1;
+       for p = y
+           proposal(i) = (p{1});
+           i= i+1;   
+       end
+       allCandidates{end+1} = proposal;
+       [R,f] = ABH_Optimitzation(proposal,'vec');
+       
+       disCount = 0;
+       for iR = 2:length(R)
+           if(f(iR) > 250 & f(iR) < 500)
+              % if(abs(R(iR))>0.1)
+                    disCount = disCount+abs(R(iR));
+              % end
            end
-           %end
        end
 
-       %reward = sum(abs(R(FREQ_CUT:end)).^2);
-       %if(reward < 1200)
-       %if(reward < MAX_VALUE*10*0.5)
-       %     plot(f,abs(R));
-       %     disp(proposal);
-       %     figure;
-       %end
-       disp("c:"+iProposal+" r:"+reward);
-       rewardList(iProposal) = reward;
+       disCount = disCount/MAX_VALUE*100;
+       
+       if(disCount < 0)
+           disCount = 0.01
+       end
+       if(disCount < bestScore)
+            bestPenalty = disCount;
+            bestR = R;
+            bestShape = proposal;
+       end
+       allFitness{end+1} = disCount;
+       rewardList(iProposal) = disCount;
        iProposal = iProposal+1;
     end
     
 	proposals = moduleSolver.simResults2List(rewardList,candidates);
-    disp(proposals(1))
-     disp(proposals(2))
     s.tell(proposals);
     candidates = s.ask();
     bestProposal = proposals(1);
@@ -81,9 +85,15 @@ gen = 0;
         maxFit = n{1}{'fit'};
         p = cell(moduleSolver.npArray2MatlabList(n{1}{'value'}));
         bestProposals{end+1} = p;
+        bestShapes{end+1} = bestShape;
         bestFits{end+1} = maxFit;
     end
+    
+    all{end+1} = allCandidates;
+    
+    disp(bestProposal(1))
     fprintf("Fitness " + maxFit +"\n\n");
+   
     if(gen > MAX_GENERATIONS)
         endExperiment = true;
     end

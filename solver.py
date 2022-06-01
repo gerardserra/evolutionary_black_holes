@@ -61,6 +61,17 @@ def simResults2List(rewardList, candidates):
     newList = sorted(solutions, key=itemgetter('fit'), reverse = False)
     return newList
 
+def npArray2MatlabList(npArray):
+    proposal = []
+    for element in npArray:
+        proposal.append(element)
+    return proposal
+
+def list2MatlabVector(x):
+    eng = matlab.engine.start_matlab()
+    columnVector = eng.fitdist(matlab.double(list(x), (x.size, 1)), 'stable')
+    return columnVector
+
 def evaluateMinimal(candidates, target):
     solutions = []
     fitNormal = []
@@ -75,40 +86,35 @@ def evaluateMinimal(candidates, target):
     newList = sorted(solutions, key=itemgetter('fit'), reverse = False)
     return newList
 
-def npArray2MatlabList(npArray):
-    proposal = []
-    for element in npArray:
-        proposal.append(element)
-    return proposal
 
-def generateRingsFromnpArray(npArray):
-    profile = generateABHProfile(npArray)
+
+
+def generateRingsFromnpArray(n):
+    profile = generateABHProfile(n)
     profilePerCent = radiusPerCent(profile,0.23)
     proposal = []    
     for element in profilePerCent:
         proposal.append(element)
     return proposal
 
-def list2MatlabVector(x):
-    eng = matlab.engine.start_matlab()
-    columnVector = eng.fitdist(matlab.double(list(x), (x.size, 1)), 'stable')
-    return columnVector
-
-def generateABHProfile(arr):
+def generateABHProfile(n):
     numRings = 40
     arrayRadius = []
     R = 0.23
     L = 0.5
     xl=1.0e-3;
     hring=0.001/1000;
-    dx = (L-xl-hring*numRings)/numRings;
-    n = arr[1]
+    dx = (L-hring*numRings)/numRings;
     arrayRadiusPositions = []
     pos = -xl
+    arrayRadiusPositions.append(pos)
     for j in range(numRings): 
-        pos = pos - dx
-        arrayRadiusPositions.append(abs(pos))
-    
+        if j > 0:
+            if j == 1:
+                pos = -dx
+            else:
+                pos = pos-dx
+            arrayRadiusPositions.append(abs(pos))
     for i in range(numRings):
         currentRadius = R*(arrayRadiusPositions[i]/L)**n
         arrayRadius.append(currentRadius)
@@ -116,6 +122,7 @@ def generateABHProfile(arr):
 
 def radiusPerCent(arrayRadius,L):
     return [ i / L *100 for i in arrayRadius]
+
 
 def linearEquation(parameters):
     solution = []

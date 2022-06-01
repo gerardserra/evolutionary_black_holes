@@ -11,6 +11,7 @@
 %       showResults(profileN2,{0,2}) 
 %
 %   Author: Gerard serra, 2022
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function showResults(shape,exp)
@@ -23,5 +24,14 @@ function showResults(shape,exp)
     hold on
     plot(f/1000,abs(RLast));
     plot(f/1000,abs(Rlinear));
-    legend(strcat('Agent proposal ', num2str(exp{2})),'Quadratic')
+    %legend(strcat('Agent proposal ', num2str(exp{2})),'Quadratic')
+%figure(200);
+%L = 0.5
+%numRings = 40
+%xl=1.0e-3;
+%hring=0.001/1000;
+%dx = (L-hring*numRings)/numRings;
+%x = xl - (0:numRings-1)*dx;
+% bar(x,shape,1)
+
 end
