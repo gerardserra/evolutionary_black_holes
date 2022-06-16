@@ -85,7 +85,8 @@ ro0=1.14;
 rho0=ro0;
 Z0=ro0*c0;
 
-fmax=fm/2;
+%fmax=fm/2;
+fmax=2000;
 NFFT=fm*50;
 
 maxmostra = round(fmax * NFFT/fm);

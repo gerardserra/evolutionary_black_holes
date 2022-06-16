@@ -15,10 +15,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function showResults(shape,exp)
- figure(100);
     
    [Rlinear, f] = ABH_Optimitzation(20:1.5:80,'qua');
-    figure(200);
     [RLast, f] = ABH_Optimitzation(shape,'vec');
     figure;
     hold on

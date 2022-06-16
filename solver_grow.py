@@ -11,9 +11,12 @@ class Solver(object):
     def __init__(self,rings,population):
         self.population = population
         self.rings = rings
+        #self.initialMeans = np.random.uniform(low=1, high=1.25, size=(self.rings,))
         self.initialMeans = np.random.uniform(low=1, high=1.25, size=(self.rings,))
-        self.initialSigma = 0.05
+       # self.initialSigma = 0.05
+        self.initialSigma = 0.1
         #self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population,'CMA_on':0 ,'bounds': [1, 9.5]})
+       # self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population,'bounds': [1, 1.25]})
         self.es = cma.CMAEvolutionStrategy(self.initialMeans, self.initialSigma, {'popsize': self.population,'bounds': [1, 1.25]})
         self.candidates = self.es.ask()
         print('Created solver')

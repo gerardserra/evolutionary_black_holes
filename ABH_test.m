@@ -55,7 +55,7 @@ while not(endExperiment)
        
        disCount = 0;
        for iR = 2:length(R)
-           if(f(iR) > 250 & f(iR) < 500)
+           if(f(iR) < 2000 )
               % if(abs(R(iR))>0.1)
                     disCount = disCount+abs(R(iR));
               % end
