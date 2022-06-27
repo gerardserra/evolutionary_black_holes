@@ -720,15 +720,15 @@ global x1 x2 x3 x4
     end
     
     
-    % hold on
-    % box on
-    % xv=[x1(i) x1(i) x2(i) x2(i) x3(i) x4(i)];
-    % yv=[r1(i) R     R     r2(i) r3(i) r4(i)];     
-    % plot(xv,yv,'Color',	[0, 0.4470, 0.7410])
-    % ylabel('ABH profile (m)','Interpreter','latex');
-    % xlabel('Distance from termination (m)','Interpreter','latex');
-    % hold off
-    % drawnow
+   %  hold on
+   %  box on
+   %  xv=[x1(i) x1(i) x2(i) x2(i) x3(i) x4(i)];
+   %  yv=[r1(i) R     R     r2(i) r3(i) r4(i)];     
+   %  plot(xv,yv,'Color',	[0, 0.4470, 0.7410])
+   %  ylabel('ABH profile (m)','Interpreter','latex');
+   %  xlabel('Distance from termination (m)','Interpreter','latex');
+   %  hold off
+   %  drawnow
 
     r1_out=r1(i);
     r2_out=r2(i);

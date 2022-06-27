@@ -22,6 +22,7 @@ function showResults(shape,exp)
     hold on
     plot(f/1000,abs(RLast));
     plot(f/1000,abs(Rlinear));
+    
     %legend(strcat('Agent proposal ', num2str(exp{2})),'Quadratic')
 %figure(200);
 %L = 0.5

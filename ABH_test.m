@@ -14,7 +14,6 @@ function [bestProposals,bestFits,bestShapes,all,allFitness]=ABH_test(numRings,ma
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 MAX_GENERATIONS = maxGen;
-MAX_VALUE = 25000-cutFreq;
 
 POPULATION = totalPop;
 %POPULATION = int32(4+3*log(numRings))
@@ -50,19 +49,23 @@ while not(endExperiment)
            proposal(i) = (p{1});
            i= i+1;   
        end
+       
        allCandidates{end+1} = proposal;
        [R,f] = ABH_Optimitzation(proposal,'vec');
-       
+       sizeR = length(R);
+
+       weights = stepWeights05(sizeR,75000);
+       maxScore = sum(weights);
        disCount = 0;
-       for iR = 2:length(R)
+       for iR = 2:sizeR
            if(f(iR) < 2000 )
-              % if(abs(R(iR))>0.1)
-                    disCount = disCount+abs(R(iR));
-              % end
+               currentCoef = abs(R(iR));
+               %disCount = disCount + currentCoef;
+               disCount = disCount + currentCoef*weights(iR);
            end
        end
-
-       disCount = disCount/MAX_VALUE*100;
+        %disCount = disCount/sizeR*100;
+       disCount = disCount/maxScore*100;
        
        if(disCount < 0)
            disCount = 0.01
@@ -91,7 +94,6 @@ while not(endExperiment)
     
     all{end+1} = allCandidates;
     
-    disp(bestProposal(1))
     fprintf("Fitness " + maxFit +"\n\n");
    
     if(gen > MAX_GENERATIONS)

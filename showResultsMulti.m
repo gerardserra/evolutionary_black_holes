@@ -14,20 +14,42 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-function showResultsMulti(shapes)
+function showResultsMulti(shapes,lastExperiment)
+
     RlastArray = {}
     for i = 1:length(shapes)
-        shape = shapes{1,i}{1, 51};
+        shape = shapes{1,i}{1, lastExperiment};
         [RLast, f] = ABH_Optimitzation(shape,'vec');
         RlastArray{i} = RLast;
      
     end
     [Rlinear, f] = ABH_Optimitzation(20:1.5:80,'qua');
+     sizeR = length(Rlinear);
+     weights = stepWeights05(sizeR,75000);
+       maxScore = sum(weights);
+       disCount = 0;
+       for iR = 2:sizeR
+           if(f(iR) < 2000 )
+               currentCoef = abs(Rlinear(iR));
+               disCount = disCount + currentCoef;
+               %disCount = disCount + currentCoef*weights(iR);
+           end
+       end
+
+      % disCount = disCount/maxScore*100;
+       disCount = disCount/sizeR*100;
+       
+    
+
+    disp(disCount)
+
     figure
     hold all
     
     for i = 1:length(RlastArray)
-        plot(f/1000,abs(RlastArray{i}),'--b');
+        if(RlastArray{1,i}(70000) < 0.2)
+            plot(f/1000,abs(RlastArray{i}));
+        end
     end
     plot(f/1000,abs(Rlinear),'LineWidth',1.5);
     
